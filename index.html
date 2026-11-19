@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مهامي</title>
+<meta name="theme-color" content="#f5b83d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مهامي">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="icon" href="icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+<style>
+:root{
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#e9eef3;--card:#fff;--ink:#16212e;--muted:#6b7a8a;--line:#d5dde6;--accent:#0f766e;--accent-ink:#fff;
+  --yellow:#f5b83d;--danger:#b42318;--hi:#d92d20;--mid:#f5b83d;--lo:#12b76a;color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0e151c;--card:#17212b;--ink:#e8eef4;--muted:#8fa0b1;--line:#2a3744;--accent:#2dd4bf;--accent-ink:#06201d;--danger:#ff8a80;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e151c;--card:#17212b;--ink:#e8eef4;--muted:#8fa0b1;--line:#2a3744;--accent:#2dd4bf;--accent-ink:#06201d;--danger:#ff8a80;color-scheme:dark}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:"IBM Plex Sans Arabic",Tahoma,Arial,sans-serif;line-height:1.6}
+main{max-width:600px;margin:0 auto;padding:24px 16px 60px}
+header{display:flex;justify-content:space-between;align-items:flex-start}
+.greet{font-size:1.15rem;font-weight:500;color:var(--muted);margin:0 0 4px}
+h1{font-size:2rem;font-weight:700;margin:0 0 2px}
+.sub{color:var(--muted);margin:0 0 18px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+.icon{border:1.5px solid var(--line);background:var(--card);border-radius:8px;padding:4px 10px}
+.progress{background:var(--line);border-radius:999px;height:12px;overflow:hidden}
+.progress>i{display:block;height:100%;width:0;background:var(--yellow);transition:width .35s}
+.stat{display:flex;justify-content:space-between;margin:8px 0 20px;font-size:.95rem;color:var(--muted)}
+.form{background:var(--card);border:1.5px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px;margin-bottom:16px}
+.form input,.form select,.tools select,.box textarea{padding:9px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);min-width:0;width:100%}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts .full{grid-column:1/-1}
+.chk{display:flex;align-items:center;gap:8px;font-size:.95rem}
+.go{padding:11px;border:0;border-radius:10px;background:var(--accent);color:var(--accent-ink);font-weight:700}
+.filters{display:flex;gap:6px;margin-bottom:8px}
+.filters button{flex:1;padding:7px;border:1.5px solid var(--line);border-radius:8px;background:transparent;color:var(--muted)}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+li{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-inline-start:6px solid var(--mid);border-radius:10px;padding:10px}
+li.p-high{border-inline-start-color:var(--hi)}li.p-low{border-inline-start-color:var(--lo)}
+li.over{border-color:var(--danger)}
+li.dragging{opacity:.4}
+input[type=checkbox].tick{appearance:none;-webkit-appearance:none;width:24px;height:24px;flex:none;cursor:pointer;margin:0;background:#f5b83d center/80% no-repeat;border:2px solid #000;border-radius:6px}
+input[type=checkbox].tick:checked{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7' fill='none' stroke='%23000' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
+.body{flex:1;min-width:0}
+.txt{cursor:text;overflow-wrap:anywhere}
+li.done .txt{text-decoration:line-through;color:var(--muted)}
+.edit{width:100%;padding:4px 8px;border:1.5px solid var(--accent);border-radius:6px;background:var(--bg)}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px;font-size:.82rem;color:var(--muted)}
+.meta .tag{background:var(--bg);border-radius:999px;padding:0 8px}
+.meta .late{color:var(--danger);font-weight:700}
+.acts{display:flex;flex-direction:column}
+.acts button,.del{border:0;background:transparent;color:var(--muted);padding:0 6px;line-height:1.3}
+.del{font-size:1.3rem;border-radius:6px}.del:hover{color:var(--danger)}
+.empty{text-align:center;color:var(--muted);padding:26px 0;display:block}
+.links{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap}
+.links button{border:0;background:transparent;text-decoration:underline;padding:4px;color:var(--muted)}
+.links .red{color:var(--danger)}
+.box{margin-top:10px;display:none;gap:8px}.box.on{display:grid}
+.box textarea{min-height:110px;direction:ltr;text-align:left;font-family:monospace;font-size:.8rem}
+.toast{position:fixed;inset-inline:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));max-width:560px;margin:0 auto;background:var(--ink);color:var(--bg);padding:12px 16px;border-radius:10px;display:none;z-index:5}
+.toast.on{display:block}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div>
+    <p class="greet">السلام عليكم</p>
+    <h1>مهامي</h1>
+    <p class="sub" id="date"></p>
+  </div>
+  <button class="icon" id="theme" aria-label="تغيير الوضع">🌓</button>
+</header>
+
+<div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="bar"><i id="fill"></i></div>
+<div class="stat"><span id="count"></span><span id="pct"></span></div>
+
+<div class="form">
+  <input id="text" type="text" placeholder="اكتب مهمة جديدة" autocomplete="off" aria-label="مهمة جديدة">
+  <div class="opts">
+    <input id="due" type="datetime-local" aria-label="موعد المهمة">
+    <select id="prio" aria-label="الأولوية">
+      <option value="mid">أولوية عادية</option><option value="high">أولوية مهمة</option><option value="low">أولوية يمكن تأجيلها</option>
+    </select>
+    <input id="cat" list="cats" placeholder="التصنيف (شغل، دراسة، بيت)" aria-label="التصنيف">
+    <datalist id="cats"></datalist>
+    <select id="rep" aria-label="التكرار">
+      <option value="">بدون تكرار</option><option value="daily">تتكرر كل يوم</option><option value="weekly">تتكرر كل أسبوع</option>
+    </select>
+    <label class="chk full"><input type="checkbox" id="rem"> ذكّرني عند الموعد</label>
+  </div>
+  <button class="go" id="add">أضف مهمة</button>
+</div>
+
+<div class="filters" id="filters">
+  <button data-f="all" aria-pressed="true">الكل</button>
+  <button data-f="todo" aria-pressed="false">المتبقية</button>
+  <button data-f="done" aria-pressed="false">المنجزة</button>
+</div>
+<div class="tools">
+  <select id="fcat" aria-label="فلتر التصنيف"></select>
+  <select id="sort" aria-label="الترتيب">
+    <option value="manual">ترتيبي أنا</option><option value="prio">حسب الأولوية</option><option value="due">حسب الموعد</option>
+  </select>
+</div>
+
+<ul id="list"></ul>
+
+<div class="links">
+  <button id="clear" class="red" hidden>احذف المهام المنجزة</button>
+  <button id="exp">نسخة احتياطية</button>
+  <button id="imp">استرجاع نسخة</button>
+</div>
+<div class="box" id="box">
+  <textarea id="data" aria-label="بيانات النسخة الاحتياطية" placeholder="الصق هنا النسخة المحفوظة ثم اضغط استرجاع"></textarea>
+  <button class="go" id="doImp">استرجع المهام من النص</button>
+</div>
+</main>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+var KEY="tasks-v2",TK="theme-v1",tasks=[],filter="all",$=function(i){return document.getElementById(i)};
+try{tasks=JSON.parse(localStorage.getItem(KEY)||localStorage.getItem("tasks-v1")||"[]")}catch(e){tasks=[]}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+tasks.forEach(function(t){t.id=t.id||uid();t.prio=t.prio||"mid"})
+function save(){try{localStorage.setItem(KEY,JSON.stringify(tasks))}catch(e){}}
+try{$("date").textContent=new Date().toLocaleDateString("ar-EG",{weekday:"long",day:"numeric",month:"long"})}catch(e){}
+
+/* الوضع */
+var theme="auto";try{theme=localStorage.getItem(TK)||"auto"}catch(e){}
+function applyTheme(){var r=document.documentElement;if(theme==="auto")r.removeAttribute("data-theme");else r.setAttribute("data-theme",theme);
+  $("theme").textContent=theme==="dark"?"🌙":theme==="light"?"☀️":"🌓"}
+$("theme").onclick=function(){theme=theme==="auto"?"light":theme==="light"?"dark":"auto";try{localStorage.setItem(TK,theme)}catch(e){}applyTheme()};
+applyTheme();
+
+function toast(m){var t=$("toast");t.textContent=m;t.className="toast on";clearTimeout(toast.h);toast.h=setTimeout(function(){t.className="toast"},6000)}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes())}
+function show(s){try{return new Date(s).toLocaleString("ar-EG",{weekday:"short",day:"numeric",month:"short",hour:"numeric",minute:"2-digit"})}catch(e){return s}}
+var PR={high:0,mid:1,low:2},PN={high:"مهمة",mid:"عادية",low:"تُؤجَّل"};
+
+function visible(){
+  var c=$("fcat").value,s=$("sort").value;
+  var a=tasks.filter(function(t){
+    return (filter==="all"||(filter==="done"?t.done:!t.done))&&(!c||t.cat===c)});
+  if(s==="prio")a=a.slice().sort(function(x,y){return PR[x.prio]-PR[y.prio]});
+  if(s==="due")a=a.slice().sort(function(x,y){return (x.due||"9")>(y.due||"9")?1:-1});
+  return a;
+}
+function cats(){
+  var set={};tasks.forEach(function(t){if(t.cat)set[t.cat]=1});
+  var cur=$("fcat").value,names=Object.keys(set);
+  $("fcat").innerHTML="";var o=document.createElement("option");o.value="";o.textContent="كل التصنيفات";$("fcat").appendChild(o);
+  $("cats").innerHTML="";
+  names.forEach(function(n){var x=document.createElement("option");x.value=n;x.textContent=n;$("fcat").appendChild(x);
+    var y=document.createElement("option");y.value=n;$("cats").appendChild(y)});
+  $("fcat").value=names.indexOf(cur)>-1?cur:"";
+}
+function move(t,dir){
+  var v=visible(),i=v.indexOf(t),n=v[i+dir];if(!n)return;
+  var a=tasks.indexOf(t),b=tasks.indexOf(n);tasks[a]=n;tasks[b]=t;save();render();
+}
+function complete(t,on){
+  t.done=on;
+  if(on&&t.rep){
+    var d=new Date(t.due||Date.now());d.setDate(d.getDate()+(t.rep==="weekly"?7:1));
+    var c={id:uid(),text:t.text,done:false,prio:t.prio,cat:t.cat,rep:t.rep,rem:t.rem,due:fmt(d)};
+    tasks.splice(tasks.indexOf(t),0,c);toast("تم، وأضفنا المهمة التالية: "+show(c.due));
+  }
+  save();render();
+}
+function startEdit(t,span){
+  var i=document.createElement("input");i.className="edit";i.value=t.text;span.replaceWith(i);i.focus();
+  var fin=false;
+  function done(ok){if(fin)return;fin=true;var v=i.value.trim();if(ok&&v){t.text=v;save()}render()}
+  i.onkeydown=function(e){if(e.key==="Enter")done(true);if(e.key==="Escape")done(false)};
+  i.onblur=function(){done(true)};
+}
+var dragId=null;
+function render(){
+  cats();
+  var tot=tasks.length,dn=tasks.filter(function(t){return t.done}).length,p=tot?Math.round(dn/tot*100):0;
+  $("fill").style.width=p+"%";$("bar").setAttribute("aria-valuenow",p);
+  $("count").textContent="أنجزت "+dn+" من "+tot;$("pct").textContent=p+"٪";$("clear").hidden=!dn;
+  var L=$("list"),v=visible(),manual=$("sort").value==="manual",now=Date.now();
+  L.innerHTML="";
+  if(!v.length){var e=document.createElement("li");e.className="empty";e.textContent=tot?"لا توجد مهام هنا":"ابدأ بإضافة أول مهمة";L.appendChild(e);return}
+  v.forEach(function(t){
+    var li=document.createElement("li"),late=t.due&&!t.done&&new Date(t.due).getTime()<now;
+    li.className="p-"+t.prio+(t.done?" done":"")+(late?" over":"");
+    var cb=document.createElement("input");cb.type="checkbox";cb.className="tick";cb.checked=!!t.done;
+    cb.setAttribute("aria-label","تم إنجاز: "+t.text);cb.onchange=function(){complete(t,cb.checked)};
+    var b=document.createElement("div");b.className="body";
+    var s=document.createElement("div");s.className="txt";s.textContent=t.text;s.title="اضغط للتعديل";s.onclick=function(){startEdit(t,s)};
+    b.appendChild(s);
+    var m=document.createElement("div");m.className="meta";
+    function chip(txt,cls){var c=document.createElement("span");c.className=cls||"tag";c.textContent=txt;m.appendChild(c)}
+    if(t.cat)chip(t.cat);
+    chip("الأولوية: "+PN[t.prio]);
+    if(t.due)chip((late?"متأخرة: ":"الموعد: ")+show(t.due),late?"late":"tag");
+    if(t.rep)chip(t.rep==="weekly"?"أسبوعيًا":"يوميًا");
+    if(t.rem&&t.due)chip("🔔");
+    b.appendChild(m);
+    li.appendChild(cb);li.appendChild(b);
+    if(manual){
+      var a=document.createElement("div");a.className="acts";
+      var u=document.createElement("button");u.textContent="▲";u.setAttribute("aria-label","انقل لأعلى");u.onclick=function(){move(t,-1)};
+      var d=document.createElement("button");d.textContent="▼";d.setAttribute("aria-label","انقل لأسفل");d.onclick=function(){move(t,1)};
+      a.appendChild(u);a.appendChild(d);li.appendChild(a);
+      li.draggable=true;
+      li.ondragstart=function(){dragId=t.id;li.classList.add("dragging")};
+      li.ondragend=function(){li.classList.remove("dragging")};
+      li.ondragover=function(e){e.preventDefault()};
+      li.ondrop=function(e){e.preventDefault();var f=tasks.filter(function(x){return x.id===dragId})[0];
+        if(f&&f!==t){tasks.splice(tasks.indexOf(f),1);tasks.splice(tasks.indexOf(t),0,f);save();render()}};
+    }
+    var x=document.createElement("button");x.className="del";x.textContent="×";x.setAttribute("aria-label","احذف: "+t.text);
+    x.onclick=function(){tasks=tasks.filter(function(k){return k!==t});save();render()};
+    li.appendChild(x);L.appendChild(li);
+  });
+}
+
+/* إضافة */
+function add(){
+  var v=$("text").value.trim();if(!v)return;
+  var due=$("due").value,rem=$("rem").checked&&!!due;
+  if($("rem").checked&&!due)toast("اختر موعدًا لتفعيل التذكير");
+  tasks.unshift({id:uid(),text:v,done:false,prio:$("prio").value,cat:$("cat").value.trim(),due:due,rep:$("rep").value,rem:rem});
+  $("text").value="";$("due").value="";$("cat").value="";$("rep").value="";$("rem").checked=false;
+  save();render();$("text").focus();
+}
+$("add").onclick=add;
+$("text").addEventListener("keydown",function(e){if(e.key==="Enter")add()});
+$("rem").onchange=function(){if(this.checked){try{if(window.Notification&&Notification.permission==="default")Notification.requestPermission()}catch(e){}}};
+
+/* فلاتر */
+$("filters").addEventListener("click",function(e){
+  var b=e.target.closest("button");if(!b)return;filter=b.dataset.f;
+  Array.prototype.forEach.call($("filters").children,function(x){x.setAttribute("aria-pressed",x===b?"true":"false")});render()});
+$("fcat").onchange=render;$("sort").onchange=render;
+$("clear").onclick=function(){tasks=tasks.filter(function(t){return !t.done});save();render()};
+
+/* نسخة احتياطية */
+$("exp").onclick=function(){
+  var j=JSON.stringify(tasks);$("box").className="box on";$("data").value=j;$("data").select();
+  try{navigator.clipboard.writeText(j).then(function(){toast("تم نسخ المهام. احفظها في أي مكان")},function(){toast("انسخ النص الظاهر واحفظه")})}catch(e){toast("انسخ النص الظاهر واحفظه")}
+};
+$("imp").onclick=function(){$("box").className="box on";$("data").value="";$("data").focus()};
+$("doImp").onclick=function(){
+  try{var a=JSON.parse($("data").value);if(!Array.isArray(a))throw 0;
+    a.forEach(function(t){t.id=t.id||uid();t.prio=t.prio||"mid"});tasks=a;save();render();$("box").className="box";toast("تم استرجاع "+a.length+" مهمة")}
+  catch(e){toast("النص غير صالح. الصق النسخة كاملة كما نُسخت")}
+};
+
+/* التذكيرات (تعمل والصفحة مفتوحة) */
+function check(){
+  var now=Date.now(),ch=false;
+  tasks.forEach(function(t){
+    if(t.rem&&t.due&&!t.done&&!t.notified&&new Date(t.due).getTime()<=now){
+      t.notified=true;ch=true;toast("🔔 حان موعد: "+t.text);
+      try{if(window.Notification&&Notification.permission==="granted")new Notification("مهامي",{body:t.text})}catch(e){}
+    }});
+  if(ch){save();render()}
+}
+setInterval(check,20000);
+render();check();
+})();
+</script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})})}</script>
+</body>
+  </html>
